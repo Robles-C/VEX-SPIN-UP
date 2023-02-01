@@ -1,5 +1,6 @@
 #pragma once
 #include "api.h"
+#include "pros/adi.hpp"
 #include "pros/motors.h"
 
 /// Class for robot configuration.
@@ -80,10 +81,10 @@ class robotChasis{
     pros::Motor topIntake = pros::Motor(14, pros::E_MOTOR_GEARSET_18, true);
 
     /// Roller Motor Instance
-    pros::Motor fly1 = pros::Motor(17, pros::E_MOTOR_GEARSET_18, false);
+    pros::Motor fly1 = pros::Motor(17, pros::E_MOTOR_GEARSET_06, false);
 
     /// Roller Motor Instance
-    pros::Motor fly2 = pros::Motor(18, pros::E_MOTOR_GEARSET_18, false);
+    pros::Motor fly2 = pros::Motor(18, pros::E_MOTOR_GEARSET_06, true);
 
     //encoder leftTracker = encoder(Brain.ThreeWirePort.E);
     //encoder rightTracker = encoder(Brain.ThreeWirePort.A);
@@ -97,10 +98,10 @@ class robotChasis{
     /// Back Tracker Rotation Sensor Instance
     pros::Rotation backTracker = pros::Rotation(10,false);
     
-    /// Limit Switch Sensor Instance
-    pros::ADIDigitalIn limit = pros::ADIDigitalIn('G');
-
-    pros::ADILineSensor line1 = pros::ADILineSensor('A');
+    pros::ADIDigitalOut angler = pros::ADIDigitalOut('A');
+    pros::ADIDigitalOut expansion = pros::ADIDigitalOut('B');
+    pros::ADIDigitalOut indexer = pros::ADIDigitalOut('C');
+    pros::ADIDigitalOut mouth = pros::ADIDigitalOut('D');
 
     /// IMU Sensor Instance
     pros::Imu gyroM = pros::Imu(20);

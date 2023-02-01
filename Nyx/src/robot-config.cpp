@@ -14,9 +14,6 @@ robotChasis::robotChasis( float wD, float tcL, float tcR, float tcB){
   leftTracker.reset_position();
   backTracker.reset_position();
 
-  leftTracker.set_reversed(true);
-  rightTracker.set_reversed(false);
-  backTracker.set_reversed(false);
   
 }
 

@@ -92,9 +92,7 @@ void autonomousControl::waitTilFull(){
   pros::Task::delay(20);
   int loopTime = pros::millis();
 
-  while(robot1->limit.get_value() == false && (2000 > (pros::millis() - loopTime))){
-    pros::Task::delay(20);
-  }
+
   shooting = false;
 }
 
@@ -111,8 +109,8 @@ void autonomousControl::waitUntilBalls(int ball){
   bool prevV = false;
 
   while(ballCount < ball){
-    if(robot1->line1.get_value() < 2900) currV = true;
-    else currV = false;
+    //if(robot1->line1.get_value() < 2900) currV = true;
+    //else currV = false;
 
     if((currV && (!prevV))) ballCount++;
     prevV = currV;

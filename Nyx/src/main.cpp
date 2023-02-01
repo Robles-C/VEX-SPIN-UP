@@ -8,7 +8,7 @@
 #define RED_SIDE 1
 #define BLUE_SIDE 2
 
-robotChasis robot1 = robotChasis(2.5, 2.83, 2.82, 4.5);
+robotChasis robot1 = robotChasis(2.5, 2.844, 2.875, 4.188);
 odometry tracker = odometry(&robot1, 0, 0, 0);
 autonomousControl autoChasis = autonomousControl(&robot1, &tracker);
 autonomousRoutine autoRoutine = autonomousRoutine(&autoChasis);

@@ -92,12 +92,12 @@ int odometry::updateScreen(){
   while(true){
     loopTime = pros::millis();
     // Prints the x and y coordinates and angle the bot is facing to the Controller.
-    /*robot1->mController.print(0, 0, "x: %.1fin y: %.1fin     ", -xPos, -yPos);
+    robot1->mController.print(0, 0, "x: %.1fin y: %.1fin     ", -xPos, -yPos);
     //robot1->mController.print(0, 0, "G: %.0lf, Prox: %d   ", rgb_value.green, robot1->colorSensor1.get_proximity());
     pros::Task::delay(50);
     robot1->mController.print(1, 0, "Angle: %.1f°    ", angleD);
     //robot1->mController.print(1, 0, "R: %.0lf , B: %.0lf     ", rgb_value.red, rgb_value.blue);
-    pros::Task::delay(50);*/
+    pros::Task::delay(50);
 
     //robot1->mController.print(2, 0, "B: %.0lf, Prox: %d   ", rgb_value.blue, robot1->colorSensor.get_proximity());
     pros::Task::delay(50);
