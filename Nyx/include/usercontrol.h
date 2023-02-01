@@ -25,6 +25,7 @@ class userControl{
   private:
     robotChasis *robot1;
     int a3, a4, a1;
+    int JOYSTICK_THRESHOLD;
     pros::c::optical_rgb_s_t rgb_value2, rgb_value1;
 
     void driveM();
@@ -32,6 +33,11 @@ class userControl{
     void storageRoller();
     void liftControl();
     void setBrakeMode();
+    void tank();
+    void set_joystick_threshold(int threshold);
+    void set_tank(int left, int right);
+    void joy_thresh_opcontrol(int l_stick, int r_stick);
+    double left_curve_function(double x);
     bool blue_inside = false;
 };
 

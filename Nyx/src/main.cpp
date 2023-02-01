@@ -8,7 +8,7 @@
 #define RED_SIDE 1
 #define BLUE_SIDE 2
 
-robotChasis robot1 = robotChasis(2.85, 5.44, 5.44, 5.7);
+robotChasis robot1 = robotChasis(2.5, 2.83, 2.82, 4.5);
 odometry tracker = odometry(&robot1, 0, 0, 0);
 autonomousControl autoChasis = autonomousControl(&robot1, &tracker);
 autonomousRoutine autoRoutine = autonomousRoutine(&autoChasis);
@@ -60,8 +60,6 @@ void autonomous() {
 }
 
 void opcontrol() {
-  autoRoutine.run(RED_SIDE);
-	startAuto.remove();
 	userControl driveMe = userControl(&robot1);
   driveMe.driveLoop();
 }

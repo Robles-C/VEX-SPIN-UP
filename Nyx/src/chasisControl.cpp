@@ -16,14 +16,11 @@ void autonomousControl::setPIDConstants(float xkP, float xkI, float xkD, int xCa
 }
 
 void autonomousControl::moveDrive(float x, float y, float turn){
-  robot1->frontLeft.move_voltage(-(x*cos(robot1->get_flbr()-tracking->getangleR()) + y*sin(robot1->get_flbr()-tracking->getangleR())) - turn);
-  robot1->frontRight.move_voltage((x*cos(robot1->get_frbl()-tracking->getangleR()) + y*sin(robot1->get_frbl()-tracking->getangleR())) - turn);
-  robot1->backLeft.move_voltage(-(x*cos(robot1->get_frbl()-tracking->getangleR()) + y*sin(robot1->get_frbl()-tracking->getangleR())) - turn);
-  robot1->backRight.move_voltage((x*cos(robot1->get_flbr()-tracking->getangleR()) + y*sin(robot1->get_flbr()-tracking->getangleR())) - turn);
+
 }
 
 float autonomousControl::averageRPM(){
-  return (fabs(robot1->frontRight.get_actual_velocity()) + fabs(robot1->frontLeft.get_actual_velocity()) + fabs(robot1->backRight.get_actual_velocity()) + fabs(robot1->backLeft.get_actual_velocity()))/4;
+  //return (fabs(robot1->frontRight.get_actual_velocity()) + fabs(robot1->frontLeft.get_actual_velocity()) + fabs(robot1->backRight.get_actual_velocity()) + fabs(robot1->backLeft.get_actual_velocity()))/4;
 }
 
 float autonomousControl::updatePID(PIDSettings *good){
@@ -79,8 +76,8 @@ void autonomousControl::updateTargetPos(float x, float y, int angleO){
 void autonomousControl::updateIntakePct(int pow){ intakePct = pow; }
 
 void autonomousControl::intakeMove(){
-  robot1->leftIntake.move(intakePct);
-  robot1->rightIntake.move(intakePct);
+  //robot1->leftIntake.move(intakePct);
+  //robot1->rightIntake.move(intakePct);
 }
 
 
@@ -142,10 +139,7 @@ void autonomousControl::shootingBall(){
 void autonomousControl::odometryMove(bool oMove){ movAB_Enabled = oMove; }
 
 void autonomousControl::driveM(double a3, double a4, double a1){
-  robot1->frontRight.move_voltage(a3 - a4 - a1);
-  robot1->frontLeft.move_voltage(-a3 - a4 - a1);
-  robot1->backRight.move_voltage(a3 + a4 - a1);
-  robot1->backLeft.move_voltage(-a3 + a4 - a1);
+
 }
 
 void autonomousControl::countBalls(){
@@ -153,8 +147,7 @@ void autonomousControl::countBalls(){
 }
 
 void autonomousControl::rollerMove(){
-  robot1->roller1.move(roller1Pct);
-  robot1->roller2.move(roller2Pct);
+
 }
 
 void autonomousControl::deployRobot(){
