@@ -29,18 +29,16 @@ class userControl{
     pros::c::optical_rgb_s_t rgb_value2, rgb_value1;
 
     void driveM();
-    void intakeM();
-    void storageRoller();
-    void liftControl();
-    void setBrakeMode();
+    void expansionControl();
     void tank();
     void flyControl();
     void indexing();
-    void angler();
+    void intake();
     void set_joystick_threshold(int threshold);
     void set_tank(int left, int right);
     void joy_thresh_opcontrol(int l_stick, int r_stick);
     double left_curve_function(double x);
     bool blue_inside = false;
+    int expan;
 };
 

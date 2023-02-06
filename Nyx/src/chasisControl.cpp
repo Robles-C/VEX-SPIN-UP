@@ -125,6 +125,9 @@ void autonomousControl::waitUntilDeg(float deg){
   }
 }
 
+void autonomousControl::runFly(){
+  
+}
 
 void autonomousControl::updateRollers(int pwr){ 
   roller1Pct = pwr;
@@ -158,15 +161,26 @@ void autonomousControl::deployRobot(){
 }
 
 void autonomousControl::autoMain(){
-  robot1->set_drive_break_type(pros::E_MOTOR_BRAKE_COAST);
-
+    int coutn = 1;
+    
   while(true){
-    movAB();
-    shootingBall();
-    intakeMove();
-    countBalls();
-    rollerMove();
-    pros::Task::delay(20);
+    /*robot1->fly1.move_velocity(11300);
+    robot1->fly2.move_velocity(11300);
+    
+    if(coutn >0 ){
+    robot1->indexer.set_value(true);
+    pros::Task::delay(200);
+    robot1->indexer.set_value(false);
+    pros::Task::delay(200);
+    robot1->indexer.set_value(true);
+    pros::Task::delay(200);
+    robot1->indexer.set_value(false);
+    coutn--;
+    }
+    if (coutn == 0) {
+    robot1->fly1.move_velocity(0);
+    robot1->fly2.move_velocity(0);
+    }*/
   }
 }
 

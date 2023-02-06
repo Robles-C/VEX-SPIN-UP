@@ -33,9 +33,9 @@ int odometry::updatePosition(){
     //Current time at start of loop
     loopTime = pros::millis();
 
-    currLeftEnc = robot1->leftTracker.get_position()/100;
-    currRightEnc = robot1->rightTracker.get_position()/100;
-    currBackEnc = robot1->backTracker.get_position()/100;
+    currLeftEnc = robot1->leftTracker.get_position()/100.0;
+    currRightEnc = robot1->rightTracker.get_position()/100.0;
+    currBackEnc = robot1->backTracker.get_position()/100.0;
 
     //The change in encoder values since last cycle in inches
     deltaL = (currLeftEnc - prevLeftEnc) * robot1->getWheelCir()/360;
@@ -80,7 +80,7 @@ int odometry::updatePosition(){
     angleR += a;
     angleD = angleR * (180/robot1->getPI());
     //Delays task so it does not hog all resources
-    pros::Task::delay(10 - (pros::millis() - loopTime));
+    pros::Task::delay(15 - (pros::millis() - loopTime));
   }
   return 1;
 }
@@ -92,21 +92,20 @@ int odometry::updateScreen(){
   while(true){
     loopTime = pros::millis();
     // Prints the x and y coordinates and angle the bot is facing to the Controller.
-    robot1->mController.print(0, 0, "x: %.1fin y: %.1fin     ", xPos, yPos);
+    robot1->mController.print(0, 0, "x: %.1fin y: %.1fin     ", -xPos, -yPos);
     //robot1->mController.print(0, 0, "G: %.0lf, Prox: %d   ", rgb_value.green, robot1->colorSensor1.get_proximity());
     pros::Task::delay(50);
-    robot1->mController.print(1, 0, "Angle: %.1f°    ", angleD);
+    robot1->mController.print(1, 0, "Angle: %.1f°    ", robot1->gyroM.get_heading());
     //robot1->mController.print(1, 0, "R: %.0lf , B: %.0lf     ", rgb_value.red, rgb_value.blue);
     pros::Task::delay(50);
 
-    robot1->mController.print(2, 0, "Line Value: %d     ", robot1->line1.get_value());
     //robot1->mController.print(2, 0, "B: %.0lf, Prox: %d   ", rgb_value.blue, robot1->colorSensor.get_proximity());
     pros::Task::delay(50);
 
     // Prints information about the bot to the console
     //printf("Distance: %.2lf Y Voltage: %.0f X Voltage: %.0f\n", vMag, yVoltage, xVoltage);
     printf("Tracking Wheels Angle: %0.f   IMU angle: %0.lf\n", angleD, robot1->gyroM.get_heading());
-    printf("rightTW: %.0lf, leftTW: %0.lf, backTW: %.0lf\n", robot1->rightTracker.get_position()*100, robot1->leftTracker.get_position()*100, robot1->backTracker.get_position()*100);
+    printf("rightTW: %.0lf, leftTW: %0.lf, backTW: %.0lf\n", robot1->rightTracker.get_position()*100.0, robot1->leftTracker.get_position()*100.0, robot1->backTracker.get_position()*100.0);
     //printf("%.0lf, %.0lf, %.0lf \n", Brain.Timer.time(msec), flyOuttake.velocity(rpm), flyOuttake.voltage(voltageUnits::mV));
 
     //Delays task so it does not hog all resources

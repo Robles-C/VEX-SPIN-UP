@@ -1,4 +1,5 @@
 #include "autonomousRoutine.h"
+#include "robot-config.h"
 
 autonomousRoutine::autonomousRoutine(autonomousControl *autoControl) {
   control = autoControl;
@@ -25,10 +26,9 @@ void autonomousRoutine::run(int autoSelection) {
 }
 
 void autonomousRoutine::test(){
-  control->deployRobot();
-  control->updateTargetPos(0, 16, 180);
-  control->waitUntilSettled();
-  pros::Task::delay(1250);
+  //robotChasis
+  //control->runFly();
+  
 }
 
 void autonomousRoutine::redSideAuto(){

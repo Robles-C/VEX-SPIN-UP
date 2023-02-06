@@ -1,4 +1,5 @@
 #include "main.h"
+#include "pros/motors.h"
 #include "robot-config.h"
 #include "chasisControl.h"
 #include "autonomousRoutine.h"
@@ -8,7 +9,7 @@
 #define RED_SIDE 1
 #define BLUE_SIDE 2
 
-robotChasis robot1 = robotChasis(2.85, 5.44, 5.44, 5.7);
+robotChasis robot1 = robotChasis(2.5, 2.844, 2.875, 4.188);
 odometry tracker = odometry(&robot1, 0, 0, 0);
 autonomousControl autoChasis = autonomousControl(&robot1, &tracker);
 autonomousRoutine autoRoutine = autonomousRoutine(&autoChasis);
@@ -39,7 +40,8 @@ pros::Task startAuto(autoWrapper);
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-
+  robot1.gyroM.reset();
+  pros::delay(500);
 }
 
 /**
@@ -57,11 +59,14 @@ void competition_initialize() {}
 
 void autonomous() {
 	autoRoutine.run(TEST);
+  
 }
 
 void opcontrol() {
-  autoRoutine.run(RED_SIDE);
-	startAuto.remove();
+  //autoRoutine.run(RED_SIDE);
+	//startAuto.remove();
+  robot1.fly1.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+  robot1.fly2.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
 	userControl driveMe = userControl(&robot1);
   driveMe.driveLoop();
 }

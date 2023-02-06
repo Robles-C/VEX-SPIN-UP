@@ -9,9 +9,67 @@ userControl::userControl(robotChasis *robot){
   robot1->set_drive_break_type(pros::E_MOTOR_BRAKE_COAST);
 }
 
-void userControl::setBrakeMode(){
-  if(robot1->mController.get_digital(pros::E_CONTROLLER_DIGITAL_B)) robot1->set_drive_break_type(pros::E_MOTOR_BRAKE_HOLD);
-  else if(robot1->mController.get_digital(pros::E_CONTROLLER_DIGITAL_A)) robot1->set_drive_break_type(pros::E_MOTOR_BRAKE_COAST);
+void userControl::expansionControl(){
+  if(robot1->mController.get_digital(pros::E_CONTROLLER_DIGITAL_UP)&&expan >3) {
+    robot1->set_drive_break_type(pros::E_MOTOR_BRAKE_HOLD);
+    pros::delay(150);
+    expan--;
+  }
+  if(robot1->mController.get_digital(pros::E_CONTROLLER_DIGITAL_UP)&&expan >0){
+    expan--;
+    pros::delay(150);
+  }
+  if(expan==0){
+    robot1->expansion.set_value(true);
+    pros::delay(200);
+    robot1->expansion.set_value(false);
+    pros::delay(200);
+    robot1->expansion.set_value(true);
+    pros::delay(200);
+    robot1->expansion.set_value(false);
+    pros::delay(200);
+    robot1->expansion.set_value(true);
+    pros::delay(200);
+    robot1->expansion.set_value(false);
+    pros::delay(200);
+    robot1->expansion.set_value(true);
+    pros::delay(200);
+    robot1->expansion.set_value(false);
+    pros::delay(200);
+    robot1->expansion.set_value(true);
+    pros::delay(200);
+    robot1->expansion.set_value(false);
+    pros::delay(200);
+    robot1->expansion.set_value(true);
+    pros::delay(200);
+    robot1->expansion.set_value(false);
+    pros::delay(200);
+    robot1->expansion.set_value(true);
+    pros::delay(200);
+    robot1->expansion.set_value(false);
+    pros::delay(200);
+    robot1->expansion.set_value(true);
+    pros::delay(200);
+    robot1->expansion.set_value(false);
+    pros::delay(200);
+    robot1->expansion.set_value(true);
+    pros::delay(200);
+    robot1->expansion.set_value(false);
+    pros::delay(200);
+    robot1->expansion.set_value(true);
+    pros::delay(200);
+    robot1->expansion.set_value(false);
+    pros::delay(200);
+    robot1->expansion.set_value(true);
+    pros::delay(200);
+    robot1->expansion.set_value(false);
+    pros::delay(200);
+    robot1->expansion.set_value(true);
+    pros::delay(200);
+    robot1->expansion.set_value(false);
+    pros::delay(200);
+    expan+=5;
+  }
 }
 
 
@@ -48,56 +106,65 @@ void userControl::set_tank(int left, int right) {
   //robot1->mController.print(0, 0, "left: %.1f", left* (12000.0 / 127.0));
 }
 
-void userControl::flyControl(){
-  if(robot1->mController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_X)){
-    fly = true;
-  }
-    if(fly){
-      robot1->fly1.move_voltage(11200);
-      robot1->fly2.move_voltage(11200);
-    }else {
-      robot1->fly1.move_voltage(0);
-      robot1->fly2.move_voltage(0);
-    }
-}
 
 void userControl::indexing(){
   if(robot1->mController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R2)){
+    
+    robot1->indexer.set_value(false);
+    pros::delay(200);
     robot1->indexer.set_value(true);
     pros::delay(250);
     robot1->indexer.set_value(false);
-    pros::delay(100);
+    pros::delay(200);
     robot1->indexer.set_value(true);
     pros::delay(250);
     robot1->indexer.set_value(false);
-    pros::delay(100);
+    pros::delay(200);
     robot1->indexer.set_value(true);
-    pros::delay(250);
-    robot1->indexer.set_value(false);
   }
   if(robot1->mController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1)){
-    robot1->indexer.set_value(true);
-    pros::delay(300);
     robot1->indexer.set_value(false);
+    pros::delay(270);
+    robot1->indexer.set_value(true);
   }
 }
 
-void userControl::angler(){
-    if(robot1->mController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP)){
+void userControl::flyControl(){
+  if(robot1->mController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B)){
     robot1->angler.set_value(true);
-    pros::delay(1000);
+    robot1->fly1.move_voltage(8800);
+    robot1->fly2.move_voltage(8800);
+  }else if(robot1->mController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN)){
     robot1->angler.set_value(false);
+    robot1->fly1.move_voltage(11200);
+    robot1->fly2.move_voltage(11200);
+  }
+}
+
+void userControl::intake(){
+  if(robot1->mController.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){
+    robot1->topIntake.move_voltage(12000);
+    robot1->bottomIntake.move_voltage(12000);
+  }else if(robot1->mController.get_digital(pros::E_CONTROLLER_DIGITAL_L2)){
+    robot1->topIntake.move_voltage(-12000);
+    robot1->bottomIntake.move_voltage(-12000);
+  }else {
+    robot1->topIntake.move_voltage(0);
+    robot1->bottomIntake.move_voltage(0);
   }
 }
 
 void userControl::driveLoop(){
   set_joystick_threshold(5);
   fly = false;
+  expan = 5;
+  robot1->indexer.set_value(true);
   while(true){
     tank();
     flyControl();
     indexing();
-    angler();
+    intake();
+    expansionControl();
     pros::Task::delay(20);
   }
 }

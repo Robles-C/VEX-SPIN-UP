@@ -145,5 +145,6 @@ class autonomousControl{
     void rollerMove();
     void shootingBall();
     void updateCurrPos();
+    void runFly();
     void driveM(double a3, double a4, double a1);
 };
