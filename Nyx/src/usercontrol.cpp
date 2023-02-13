@@ -110,19 +110,20 @@ void userControl::set_tank(int left, int right) {
 void userControl::indexing(){
   if(robot1->mController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R2)){
     
-    robot1->indexer.set_value(false);
-    pros::delay(200);
     robot1->indexer.set_value(true);
     pros::delay(250);
     robot1->indexer.set_value(false);
-    pros::delay(200);
+    pros::delay(250);
     robot1->indexer.set_value(true);
     pros::delay(250);
     robot1->indexer.set_value(false);
-    pros::delay(200);
+    pros::delay(250);
     robot1->indexer.set_value(true);
+    pros::delay(250);
+    robot1->indexer.set_value(false);
   }
   if(robot1->mController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1)){
+    
     robot1->indexer.set_value(false);
     pros::delay(270);
     robot1->indexer.set_value(true);
@@ -130,11 +131,19 @@ void userControl::indexing(){
 }
 
 void userControl::flyControl(){
-  if(robot1->mController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B)){
+  if(robot1->mController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_RIGHT)){
+    robot1->angler.set_value(true);
+    robot1->fly1.move_voltage(0);
+    robot1->fly2.move_voltage(0);
+  }else if(robot1->mController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)){
     robot1->angler.set_value(true);
     robot1->fly1.move_voltage(8800);
     robot1->fly2.move_voltage(8800);
   }else if(robot1->mController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN)){
+    robot1->angler.set_value(false);
+    robot1->fly1.move_voltage(10000);
+    robot1->fly2.move_voltage(10000);
+  }else if(robot1->mController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B)){
     robot1->angler.set_value(false);
     robot1->fly1.move_voltage(11200);
     robot1->fly2.move_voltage(11200);
@@ -158,7 +167,7 @@ void userControl::driveLoop(){
   set_joystick_threshold(5);
   fly = false;
   expan = 5;
-  robot1->indexer.set_value(true);
+  //robot1->indexer.set_value(true);
   while(true){
     tank();
     flyControl();

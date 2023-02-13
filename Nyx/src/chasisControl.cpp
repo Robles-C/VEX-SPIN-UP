@@ -28,10 +28,15 @@ float autonomousControl::updatePID(PIDSettings *good){
   good->derivative = good->error - good->prevError;
   good->totalError = good->totalError + good->error;
 
-  if((good->totalError*good->kI)>good->cap) good->totalError = good->cap/good->kI;
-  else if((good->totalError*good->kI)<-good->cap)good->totalError = -good->cap/good->kI;
+  if((good->totalError*good->kI)>good->cap){
+    good->totalError = good->cap/good->kI;
+  }else if((good->totalError*good->kI)<-good->cap){
+    good->totalError = -good->cap/good->kI;
+  } 
 
-  if(std::signbit(good->error) != std::signbit(good->prevError)) good->totalError = 0;
+  if(std::signbit(good->error) != std::signbit(good->prevError)){
+   good->totalError = 0;
+  }
 
   good->prevError = good->error;
   return -(good->kP*good->error + good->kD*good->derivative + good->kI*good->totalError);

@@ -40,10 +40,11 @@ pros::Task startAuto(autoWrapper);
  * All other competition modes are blocked by initialize; it is recommended
  * to keep execution time for this mode under a few seconds.
  */
+ 
 void initialize() {
   robot1.gyroM.reset();
   pros::delay(500);
-  robot1.indexer.set_value(false);
+  //robot1.indexer.set_value(false);
 }
 
 /**
